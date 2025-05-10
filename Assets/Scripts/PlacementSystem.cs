@@ -16,7 +16,7 @@ public class PlacementSystem : MonoBehaviour
     [SerializeField]
     private GameObject gridVisualization;
 
-    //¿ÀºêÁ§Æ®°¡ ¼ÓÇÏ°Ô µÉ floor prefab -> ÃÊ±âÈ­ÇÒ °æ¿ì ÃÊ±âÈ­ ½Ã¸¶´Ù ´Ù½Ã reference µî·Ï ÇÊ¿ä
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ floor prefab -> ï¿½Ê±ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ ï¿½Ã¸ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ reference ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½
     [SerializeField]
     private GameObject parentObject;
 
@@ -41,12 +41,12 @@ public class PlacementSystem : MonoBehaviour
 
     public void StartPlacement(int ID)
     {
-        StopPlacement(); //»õ·Î placement½ÃÀÛ ½Ã ±âÁ¸ placement Á¾·á
+        StopPlacement(); //ï¿½ï¿½ï¿½ï¿½ placementï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ placement ï¿½ï¿½ï¿½ï¿½
         gridVisualization.SetActive(true);
 
         buildingState = new PlacementState(ID, grid, preview, database, furnitureData, objectPlacer);
         
-        inputManager.OnClicked += PlaceStructure; // PlaceStructure¶ó´Â ¸Þ¼­µå¸¦ ÀÌº¥Æ®¿¡ µî·Ï => OnClicked ¹ß»ý ½Ã ÇØ´ç ÇÔ¼ö È£ÃâµÊ
+        inputManager.OnClicked += PlaceStructure; // PlaceStructureï¿½ï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½å¸¦ ï¿½Ìºï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ => OnClicked ï¿½ß»ï¿½ ï¿½ï¿½ ï¿½Ø´ï¿½ ï¿½Ô¼ï¿½ È£ï¿½ï¿½ï¿½
         inputManager.OnExit += StopPlacement;
     }
 
@@ -90,6 +90,13 @@ public class PlacementSystem : MonoBehaviour
         inputManager.OnExit -= StopPlacement;
         lastDetectedPosition = Vector3Int.zero;
         buildingState = null;
+    }
+
+    public void ResetPlacement()
+    {
+        objectPlacer.RemoveAllObjects();
+        database.ResetAllCount();
+        furnitureData.ClearAll();
     }
 
     private void Update()

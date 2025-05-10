@@ -88,6 +88,11 @@ public class GridData
             placedObjects.Remove(position);
         }
     }
+
+    public void ClearAll()
+    {
+        placedObjects.Clear();
+    }
 }
 
 //Vector3Int의 위치에 위치한 오브젝트의 정보

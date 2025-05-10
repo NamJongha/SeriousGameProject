@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -5,23 +7,50 @@ public class RoomArchiveManager : MonoBehaviour
 {
     [SerializeField]
     private RoomPrefabSO roomDataSO;
+    [SerializeField] private GameObject archiveParent;
+    private List<GameObject> roomList;
+    private Vector3 roomPos;
     
     private int currentMaxId = -1;
+
+    private float width = 5.5f;
+    private float heigth = 2.75f;
 
     public void Awake()
     {
         currentMaxId = -1;
     }
 
-    public void saveRoom(GameObject obj)
+    public void Start()
+    {
+        roomList = new List<GameObject>();
+        roomPos = Vector3.zero;
+    }
+
+    public void saveRoom(GameObject obj, String answer1)
     {
         RoomData room = new RoomData
         {
-            //id´Â 0ºÎÅÍ »ý¼º ¼øÀ¸·Î 1¾¿ Áõ°¡
+            //idï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 1ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             id = GetNextId()
         };
-
         roomDataSO.add(room);
+        
+        GameObject archiveRoom = Instantiate(obj, archiveParent.transform);
+        archiveRoom.transform.localPosition = roomPos;
+        archiveRoom.name = "room number"+currentMaxId;
+        roomList.Add(archiveRoom);
+        MovePos();
+    }
+
+    private void MovePos()
+    {
+        if(currentMaxId%3==0)
+            roomPos += new Vector3(width,heigth,0);
+        if(currentMaxId%3==1)
+            roomPos += new Vector3(-width,-2*heigth,-width);
+        if(currentMaxId%3==2)
+            roomPos += new Vector3(width,heigth,0);
     }
 
     public int GetNextId()
