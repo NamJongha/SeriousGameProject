@@ -108,6 +108,15 @@ public class PlacementSystem : MonoBehaviour
         inputManager.OnExit -= StopPlacement;
     }
 
+    public void ResetPlacement()
+    {
+        foreach(GameObject go in placedGameObjects)
+        {
+            Destroy(go);
+        }
+        database.ResetAllCount();
+    }
+
     private void Update()
     {
         if(selectedObjectIndex < 0)
