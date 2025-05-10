@@ -17,7 +17,7 @@ public class RoomArchiveManager : MonoBehaviour
     private int currentMaxId = -1;
 
     private float width = 5.5f;
-    private float heigth = 2.25f;
+    private float heigth = 2.75f;
 
     public void Awake()
     {
