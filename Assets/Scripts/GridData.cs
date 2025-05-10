@@ -48,6 +48,7 @@ public class GridData
 
     //물체를 두고자 하는 위치에 둘 수 있는 지 확인, AddObjectAt 내의 foreach문과 같은 내용
     //AddObjectAt함수에서는 placedObjects[pos]를 foreach문 내에서 실행해야 하기 때문에 따로 놔둠
+    //물체가 없으면 true 반환
     public bool CheckObjectPlacableAt(Vector3Int gridPosition, Vector2Int objectSize)
     {
         List<Vector3Int> positionToOccupy = CalculatePositions(gridPosition, objectSize);
@@ -59,6 +60,33 @@ public class GridData
             }
         }
         return true;
+    }
+
+    public int GetRepresentationIndex(Vector3Int gridPosition)
+    {
+        if(placedObjects.ContainsKey(gridPosition) == false)
+        {
+            return -1;
+        }
+        return placedObjects[gridPosition].PlacedObjectIndex;
+    }
+
+    //셀 위치에 있는 오브젝트 고유 ID를 갖고옴(database의 설정된 ID)
+    public int GetRepresentationID(Vector3Int gridPosition)
+    {
+        if (placedObjects.ContainsKey(gridPosition) == false)
+        {
+            return -1;
+        }
+        return placedObjects[gridPosition].ID;
+    }
+
+    public void RemoveObjectAt(Vector3Int gridPosition)
+    {
+        foreach(var position in placedObjects[gridPosition].occupiedPositions)
+        {
+            placedObjects.Remove(position);
+        }
     }
 }
 
