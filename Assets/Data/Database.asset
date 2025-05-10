@@ -16,12 +16,18 @@ MonoBehaviour:
   - <Name>k__BackingField: SingleBed
     <ID>k__BackingField: 0
     <Size>k__BackingField: {x: 1, y: 2}
-    <Prefab>k__BackingField: {fileID: 4987674717352658946, guid: c5b0b27afdfb25149995062286059f9c, type: 3}
+    <Prefab>k__BackingField: {fileID: 814199684506398567, guid: 24796950a810e8e46b918801a61fb363, type: 3}
     <curCount>k__BackingField: 0
     <limitCount>k__BackingField: 1
   - <Name>k__BackingField: Chair
     <ID>k__BackingField: 1
     <Size>k__BackingField: {x: 1, y: 1}
     <Prefab>k__BackingField: {fileID: 8103732218657367930, guid: 66562bae19c8a874eaf3939a20fd475b, type: 3}
+    <curCount>k__BackingField: 0
+    <limitCount>k__BackingField: 2
+  - <Name>k__BackingField: Table
+    <ID>k__BackingField: 2
+    <Size>k__BackingField: {x: 3, y: 1}
+    <Prefab>k__BackingField: {fileID: 7873789686821714283, guid: 3bf1ee7187262f649bedce919fa9358b, type: 3}
     <curCount>k__BackingField: 0
     <limitCount>k__BackingField: 2
