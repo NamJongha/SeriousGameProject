@@ -48,6 +48,7 @@ public class PlacementSystem : MonoBehaviour
         
         inputManager.OnClicked += PlaceStructure; // PlaceStructure��� �޼��带 �̺�Ʈ�� ��� => OnClicked �߻� �� �ش� �Լ� ȣ���
         inputManager.OnExit += StopPlacement;
+        inputManager.OnRotate += RotateStructure;
     }
 
     public void StartRemoving()
@@ -73,10 +74,13 @@ public class PlacementSystem : MonoBehaviour
         buildingState.OnAction(gridPosition, parentObject);
     }
 
-    //private bool CheckPlacementValidity(Vector3Int gridPosition, int selectedObjectIndex)
-    //{
-    //    return furnitureData.CheckObjectPlacableAt(gridPosition, database.objectsData[selectedObjectIndex].Size);
-    //}
+    private void RotateStructure()
+    {
+        if (buildingState is PlacementState placementState)
+        {
+            placementState.Rotate();
+        }
+    }
 
     private void StopPlacement()
     {
@@ -88,6 +92,7 @@ public class PlacementSystem : MonoBehaviour
         buildingState.EndState();
         inputManager.OnClicked -= PlaceStructure;
         inputManager.OnExit -= StopPlacement;
+        inputManager.OnRotate -= RotateStructure;
         lastDetectedPosition = Vector3Int.zero;
         buildingState = null;
     }
