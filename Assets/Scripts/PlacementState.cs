@@ -9,6 +9,8 @@ public class PlacementState : IBuildingState
     ObjectDataSO database;
     GridData furnitureData;
     ObjectPlacer objectPlacer;
+    int rotation;
+    private Vector3Int currentGridPosition;
 
     public PlacementState(int iD,
                           Grid grid,
@@ -23,8 +25,9 @@ public class PlacementState : IBuildingState
         this.database = database;
         this.furnitureData = furnitureData;
         this.objectPlacer = objectPlacer;
+        this.rotation = 0;
 
-        //¸Å°³º¯¼ö·Î ¹ÞÀº ID°¡ dataÀÇ ID¿Í ÀÏÄ¡ÇÏ¸é ±× objectÀÇ index¸¦ objectData·ÎºÎÅÍ ºÒ·¯¿È
+        //ï¿½Å°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ IDï¿½ï¿½ dataï¿½ï¿½ IDï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½Ï¸ï¿½ ï¿½ï¿½ objectï¿½ï¿½ indexï¿½ï¿½ objectDataï¿½Îºï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½
         selectedObjectIndex = database.objectsData.FindIndex(data => data.ID == ID);
 
         if (selectedObjectIndex > -1)
@@ -37,49 +40,113 @@ public class PlacementState : IBuildingState
         }
     }
 
+    public void Rotate()
+    {
+        rotation = (rotation + 90) % 360;
+        previewSystem.RotatePreview(rotation);
+
+        // È¸ï¿½ï¿½ï¿½ï¿½ size ï¿½ï¿½ï¿½
+        Vector2Int originalSize = database.objectsData[selectedObjectIndex].Size;
+        Vector2Int rotatedSize = GetRotatedSize(originalSize, rotation);
+
+        // Ä¿ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
+        previewSystem.UpdateCursorSize(rotatedSize);
+
+        Vector3 cursorPosition = grid.CellToWorld(currentGridPosition);
+        cursorPosition.y = 0.05f;
+
+        Vector3 previewPosition = cursorPosition + GetPlacementOffset(rotatedSize, rotation);
+
+        bool placementValidity = CheckPlacementValidity(currentGridPosition, rotatedSize);
+        previewSystem.UpdatePosition(cursorPosition, previewPosition, rotatedSize, placementValidity);
+    }
+
+    private Vector2Int GetRotatedSize(Vector2Int originalSize, int rotation)
+    {
+        return (rotation % 180 == 0) ? originalSize : new Vector2Int(originalSize.y, originalSize.x);
+    }
+
     public void EndState()
     {
         previewSystem.StopShowingPreview();
     }
 
-    //°¡±¸ ¹èÄ¡ ½Ã È£Ãâ
+    //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ È£ï¿½ï¿½
     public void OnAction(Vector3Int gridPosition, GameObject parentObject)
     {
-        //¹èÄ¡ÇÏ°íÀÚ ÇÏ´Â ¿ÀºêÁ§Æ®°¡ Á¦ÇÑ ¼ö·® ÀÌ»óÀÌ ¾Æ´Ï¶ó¸é ¹èÄ¡ °¡´É
+        // ï¿½ï¿½Ä¡ï¿½Ï°ï¿½ï¿½ï¿½ ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì»ï¿½ï¿½ï¿½ ï¿½Æ´Ï¶ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
         if (database.objectsData[selectedObjectIndex].limitCount > database.objectsData[selectedObjectIndex].curCount)
         {
-            //¹èÄ¡ÇÏ°íÀÚ ÇÏ´Â À§Ä¡¿¡ °ãÄ¡´Â ¿ÀºêÁ§Æ®°¡ ¾øÀ» ¶§¸¸ ¹èÄ¡ °¡´É
-            bool placementValidity = CheckPlacementValidity(gridPosition, selectedObjectIndex);
+            Vector2Int originalSize = database.objectsData[selectedObjectIndex].Size;
+            Vector2Int rotatedSize = GetRotatedSize(originalSize, rotation);
+
+            // ï¿½ï¿½Ä¡ï¿½Ï°ï¿½ï¿½ï¿½ ï¿½Ï´ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
+            bool placementValidity = CheckPlacementValidity(gridPosition, rotatedSize);
             if (!placementValidity)
             {
                 return;
             }
 
-            //¹èÄ¡ »ç¿îµå¸¦ ³Ö´Â °æ¿ì ¿©±â¿¡ ³ÖÀ¸¸é µÊ
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ (È¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
+            Vector3 finalWorldPosition = grid.CellToWorld(gridPosition);
+            finalWorldPosition += GetPlacementOffset(rotatedSize, rotation); // È¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½î¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-            int index = objectPlacer.PlaceObject(database.objectsData[selectedObjectIndex].Prefab, grid.CellToWorld(gridPosition), parentObject);
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½Ä¡
+            int index = objectPlacer.PlaceObject(database.objectsData[selectedObjectIndex].Prefab, finalWorldPosition, rotation, parentObject);
 
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® Ä«ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
             database.objectsData[selectedObjectIndex].curCount += 1;
 
-            //¼¿¿¡ °¡±¸°¡ ÀÖ´ÂÁö È®ÀÎÇÏ±â À§ÇÑ GridData¿¡ »õ·Î »ý¼ºÇÑ °¡±¸ÀÇ Á¤º¸¸¦ ÀúÀå
-            furnitureData.AddObjectAt(gridPosition, database.objectsData[selectedObjectIndex].Size, database.objectsData[selectedObjectIndex].ID, index);
+            // GridDataï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½â¼­ï¿½ï¿½ gridPositionï¿½ï¿½ ï¿½×´ï¿½ï¿½ ï¿½ï¿½ï¿½)
+            furnitureData.AddObjectAt(gridPosition, rotatedSize, database.objectsData[selectedObjectIndex].ID, index);
 
-            previewSystem.UpdatePosition(grid.CellToWorld(gridPosition), false);
+            Vector3 cursorPosition = grid.CellToWorld(gridPosition);
+            cursorPosition.y = 0.05f;
+
+            previewSystem.UpdatePosition(cursorPosition, finalWorldPosition, rotatedSize, false);
         }
     }
 
-    private bool CheckPlacementValidity(Vector3Int gridPosition, int selectedObjectIndex)
+    private bool CheckPlacementValidity(Vector3Int gridPosition, Vector2Int size)
     {
-        return furnitureData.CheckObjectPlacableAt(gridPosition, database.objectsData[selectedObjectIndex].Size);
+        return furnitureData.CheckObjectPlacableAt(gridPosition, size);
     }
 
     public void UpdateState(Vector3Int gridPosition)
     {
-        bool placementValidity = CheckPlacementValidity(gridPosition, selectedObjectIndex);
+        currentGridPosition = gridPosition;
 
-        Vector3 cellCentor = grid.CellToWorld(gridPosition);
-        cellCentor.y = 0.05f;
+        Vector2Int originalSize = database.objectsData[selectedObjectIndex].Size;
+        Vector2Int rotatedSize = GetRotatedSize(originalSize, rotation);
 
-        previewSystem.UpdatePosition(cellCentor, placementValidity);
+        bool placementValidity = CheckPlacementValidity(gridPosition, rotatedSize);
+
+        Vector3 cursorPosition = grid.CellToWorld(gridPosition);
+        cursorPosition.y = 0.05f;
+
+        Vector3 previewPosition = cursorPosition + GetPlacementOffset(rotatedSize, rotation);
+
+        previewSystem.UpdatePosition(cursorPosition, previewPosition, rotatedSize, placementValidity);
+    }
+
+    private Vector3 GetPlacementOffset(Vector2Int size, int rotation)
+    {
+        switch (rotation % 360)
+        {
+            case 0:
+                return Vector3.zero;
+
+            case 90:
+                return new Vector3(0f, 0f, size.y);
+
+            case 180:
+                return new Vector3(size.x, 0f, size.y);
+
+            case 270:
+                return new Vector3(size.x, 0f, 0f);
+
+            default:
+                return Vector3.zero;
+        }
     }
 }

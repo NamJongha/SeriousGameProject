@@ -8,8 +8,10 @@ public class RoomArchiveManager : MonoBehaviour
     [SerializeField]
     private RoomPrefabSO roomDataSO;
     [SerializeField] private GameObject archiveParent;
+    [SerializeField] private Camera camera2;
     private List<GameObject> roomList;
     private Vector3 roomPos;
+    private Vector3 camera2Pos;
     
     private int currentMaxId = -1;
 
@@ -25,6 +27,7 @@ public class RoomArchiveManager : MonoBehaviour
     {
         roomList = new List<GameObject>();
         roomPos = Vector3.zero;
+        camera2Pos = camera2.transform.position;
     }
 
     public void saveRoom(GameObject obj, String answer1)
@@ -50,13 +53,27 @@ public class RoomArchiveManager : MonoBehaviour
         if(currentMaxId%3==1)
             roomPos += new Vector3(-width,-2*heigth,-width);
         if(currentMaxId%3==2)
+        {
             roomPos += new Vector3(width,heigth,0);
+            camera2Pos += new Vector3(width/2,0,-width/2);
+            MoveCamera();
+        }
+            
     }
 
     public int GetNextId()
     {
         currentMaxId++;
         return currentMaxId;
+    }
+
+    private void MoveCamera()
+    {
+        if(camera2.orthographicSize<15)
+        {
+            camera2.transform.position = camera2Pos;
+            camera2.orthographicSize+=1;
+        }
     }
 
     public void loadRoom()

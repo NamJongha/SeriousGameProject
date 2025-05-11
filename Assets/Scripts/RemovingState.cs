@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RemovingState : IBuildingState
 {
-    //objectPlacerÀÇ gameobject listÀÇ ÀÎµ¦½º
+    //objectPlacerï¿½ï¿½ gameobject listï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½
     private int gameObjectIndex = -1;
     private int ID;
     Grid grid;
@@ -37,7 +37,7 @@ public class RemovingState : IBuildingState
     {
         GridData selectedData = null;
 
-        //°ø°£¿¡ °¡±¸°¡ ÀÖ´Ù¸é
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Ù¸ï¿½
         if (furnitureData.CheckObjectPlacableAt(gridPosition, Vector2Int.one) == false)
         {
             selectedData = furnitureData;
@@ -54,29 +54,35 @@ public class RemovingState : IBuildingState
             {
                 return;
             }
-            //Á¦ÇÑ ¼ö·® Áß ÇöÀç ¼ö·®À» 1 °¨¼Ò½ÃÅ´
+            //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 1 ï¿½ï¿½ï¿½Ò½ï¿½Å´
             ID = selectedData.GetRepresentationID(gridPosition);
             database.objectsData[ID].curCount -= 1;
 
             selectedData.RemoveObjectAt(gridPosition);
             objectPlacer.RemoveObjectAt(gameObjectIndex);
         }
-        Vector3 cellPosition = grid.CellToWorld(gridPosition);
-        cellPosition.y = 0.05f;
-        previewSystem.UpdatePosition(cellPosition, CheckIfSelectionIsValid(gridPosition));
+        Vector3 cursorPosition = grid.CellToWorld(gridPosition);
+        cursorPosition.y = 0.05f;
+
+        Vector3 previewPosition = cursorPosition + new Vector3(0, previewSystem.previewYOffset, 0); // ï¿½ï¿½ï¿½ï¿½
+
+        previewSystem.UpdatePosition(cursorPosition, previewPosition, Vector2Int.one, CheckIfSelectionIsValid(gridPosition));
     }
 
     private bool CheckIfSelectionIsValid(Vector3Int gridPosition)
     {
-        //ÇØ´ç À§Ä¡¿¡ °¡±¸°¡ ¾ø´Ù¸é false ¹ÝÈ¯
+        //ï¿½Ø´ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ù¸ï¿½ false ï¿½ï¿½È¯
         return !furnitureData.CheckObjectPlacableAt(gridPosition, Vector2Int.one);
     }
 
     public void UpdateState(Vector3Int gridPosition)
     {
         bool validity = CheckIfSelectionIsValid(gridPosition);
-        Vector3 cellPosition = grid.CellToWorld(gridPosition);
-        cellPosition.y = 0.05f;
-        previewSystem.UpdatePosition(cellPosition, validity);
+        Vector3 cursorPosition = grid.CellToWorld(gridPosition);
+        cursorPosition.y = 0.05f;
+
+        Vector3 previewPosition = cursorPosition + new Vector3(0, previewSystem.previewYOffset, 0); // ï¿½ï¿½ï¿½ï¿½
+
+        previewSystem.UpdatePosition(cursorPosition, previewPosition, Vector2Int.one, validity);
     }
 }
