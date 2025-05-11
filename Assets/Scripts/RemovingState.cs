@@ -61,9 +61,12 @@ public class RemovingState : IBuildingState
             selectedData.RemoveObjectAt(gridPosition);
             objectPlacer.RemoveObjectAt(gameObjectIndex);
         }
-        Vector3 cellPosition = grid.CellToWorld(gridPosition);
-        cellPosition.y = 0.05f;
-        previewSystem.UpdatePosition(cellPosition, CheckIfSelectionIsValid(gridPosition));
+        Vector3 cursorPosition = grid.CellToWorld(gridPosition);
+        cursorPosition.y = 0.05f;
+
+        Vector3 previewPosition = cursorPosition + new Vector3(0, previewSystem.previewYOffset, 0); // 보정
+
+        previewSystem.UpdatePosition(cursorPosition, previewPosition, Vector2Int.one, CheckIfSelectionIsValid(gridPosition));
     }
 
     private bool CheckIfSelectionIsValid(Vector3Int gridPosition)
@@ -75,8 +78,11 @@ public class RemovingState : IBuildingState
     public void UpdateState(Vector3Int gridPosition)
     {
         bool validity = CheckIfSelectionIsValid(gridPosition);
-        Vector3 cellPosition = grid.CellToWorld(gridPosition);
-        cellPosition.y = 0.05f;
-        previewSystem.UpdatePosition(cellPosition, validity);
+        Vector3 cursorPosition = grid.CellToWorld(gridPosition);
+        cursorPosition.y = 0.05f;
+
+        Vector3 previewPosition = cursorPosition + new Vector3(0, previewSystem.previewYOffset, 0); // 보정
+
+        previewSystem.UpdatePosition(cursorPosition, previewPosition, Vector2Int.one, validity);
     }
 }

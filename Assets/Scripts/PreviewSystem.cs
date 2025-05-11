@@ -4,7 +4,7 @@ using UnityEngine;
 public class PreviewSystem : MonoBehaviour
 {
     [SerializeField]
-    private float previewYOffset = 0.06f;
+    public float previewYOffset { get; } = 0.06f;
 
     [SerializeField]
     private GameObject cellIndicator;
@@ -64,15 +64,16 @@ public class PreviewSystem : MonoBehaviour
         }
     }
 
-    public void UpdatePosition(Vector3 position, bool validity)
+    public void UpdatePosition(Vector3 cursorPosition, Vector3 previewPosition, Vector2Int size, bool validity)
     {
         if (previewObject != null)
         {
-            MovePreview(position);
+            MovePreview(previewPosition);
             ApplyFeedbackToPreview(validity);
         }
 
-        MoveCursor(position);
+        PrepareCursor(size);
+        MoveCursor(cursorPosition);
         ApplyFeedbackToCursor(validity);
     }
     
@@ -104,5 +105,15 @@ public class PreviewSystem : MonoBehaviour
         cellIndicator.SetActive(true);
         PrepareCursor(Vector2Int.one);
         ApplyFeedbackToCursor(false);
+    }
+
+    public void RotatePreview(int rotation)
+    {
+        previewObject.transform.rotation = Quaternion.Euler(0, rotation, 0); // y√‡ »∏¿¸
+    }
+
+    public void UpdateCursorSize(Vector2Int rotatedSize)
+    {
+        PrepareCursor(rotatedSize);
     }
 }
