@@ -11,6 +11,16 @@ public class GridData
     //new() : 자동적으로 객체 생성(전체를 정의하는 것을 생략) new Dictinary<>()와 같은 맥락
     Dictionary<Vector3Int, PlacementData> placedObjects = new();
 
+    private int minX, minZ, maxX, maxZ;
+
+    public void SetGridBounds(int minX, int maxX, int minZ, int maxZ)
+    {
+        this.minX = minX;
+        this.maxX = maxX;
+        this.minZ = minZ;
+        this.maxZ = maxZ;
+    }
+
     public void AddObjectAt(Vector3Int gridPosition, Vector2Int objectSize, int ID, int placedObjectIndex)
     {
         //물체가 놓일 위치를 계산하여 이를 저장 Vector3Int인 이유는 x, y, z의 위치 3가지를 고려하기 때문이며
@@ -55,6 +65,11 @@ public class GridData
         foreach(var pos in positionToOccupy)
         {
             if (placedObjects.ContainsKey(pos))
+            {
+                return false;
+            }
+
+            if (pos.x < minX || pos.x >= maxX || pos.z < minZ || pos.z >= maxZ)
             {
                 return false;
             }

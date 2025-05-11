@@ -16,7 +16,7 @@ public class PlacementSystem : MonoBehaviour
     [SerializeField]
     private GameObject gridVisualization;
 
-    //������Ʈ�� ���ϰ� �� floor prefab -> �ʱ�ȭ�� ��� �ʱ�ȭ �ø��� �ٽ� reference ��� �ʿ�
+    //      ?      ?     floor prefab ->  ? ?        ? ?  ��     ?  reference      ? 
     [SerializeField]
     private GameObject parentObject;
 
@@ -37,17 +37,19 @@ public class PlacementSystem : MonoBehaviour
     {
         StopPlacement();
         furnitureData = new(); //new GridData()
+        furnitureData.SetGridBounds(0, 5, 0, 5);
     }
 
     public void StartPlacement(int ID)
     {
-        StopPlacement(); //���� placement���� �� ���� placement ����
+        StopPlacement(); //     placement             placement     
         gridVisualization.SetActive(true);
 
         buildingState = new PlacementState(ID, grid, preview, database, furnitureData, objectPlacer);
         
-        inputManager.OnClicked += PlaceStructure; // PlaceStructure��� �޼��带 �̺�Ʈ�� ��� => OnClicked �߻� �� �ش� �Լ� ȣ���
+        inputManager.OnClicked += PlaceStructure; // PlaceStructure     ?  ?  ? ?       => OnClicked  ?      ?   ?  ?   
         inputManager.OnExit += StopPlacement;
+        inputManager.OnRotate += RotateStructure;
     }
 
     public void StartRemoving()
@@ -73,10 +75,13 @@ public class PlacementSystem : MonoBehaviour
         buildingState.OnAction(gridPosition, parentObject);
     }
 
-    //private bool CheckPlacementValidity(Vector3Int gridPosition, int selectedObjectIndex)
-    //{
-    //    return furnitureData.CheckObjectPlacableAt(gridPosition, database.objectsData[selectedObjectIndex].Size);
-    //}
+    private void RotateStructure()
+    {
+        if (buildingState is PlacementState placementState)
+        {
+            placementState.Rotate();
+        }
+    }
 
     private void StopPlacement()
     {
@@ -88,6 +93,7 @@ public class PlacementSystem : MonoBehaviour
         buildingState.EndState();
         inputManager.OnClicked -= PlaceStructure;
         inputManager.OnExit -= StopPlacement;
+        inputManager.OnRotate -= RotateStructure;
         lastDetectedPosition = Vector3Int.zero;
         buildingState = null;
     }
