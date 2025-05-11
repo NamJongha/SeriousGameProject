@@ -1,4 +1,4 @@
-//¹èÄ¡ÇÑ °¡±¸¿¡ ´ëÇÑ Á¤º¸¸¦ ÀúÀåÇÏ±â À§ÇÑ °´Ã¼
+//ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼
 using System;
 using System.Collections.Generic;
 using System.Numerics;
@@ -7,18 +7,18 @@ using UnityEngine.UIElements;
 
 public class GridData
 {
-    //Vector3Int: ±×¸®µåÀÇ À§Ä¡¿Í ¿ÀºêÁ§Æ® ÀúÀåÀ» À§ÇØ ¼±¾ð
-    //new() : ÀÚµ¿ÀûÀ¸·Î °´Ã¼ »ý¼º(ÀüÃ¼¸¦ Á¤ÀÇÇÏ´Â °ÍÀ» »ý·«) new Dictinary<>()¿Í °°Àº ¸Æ¶ô
+    //Vector3Int: ï¿½×¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    //new() : ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½) new Dictinary<>()ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Æ¶ï¿½
     Dictionary<Vector3Int, PlacementData> placedObjects = new();
 
     public void AddObjectAt(Vector3Int gridPosition, Vector2Int objectSize, int ID, int placedObjectIndex)
     {
-        //¹°Ã¼°¡ ³õÀÏ À§Ä¡¸¦ °è»êÇÏ¿© ÀÌ¸¦ ÀúÀå Vector3IntÀÎ ÀÌÀ¯´Â x, y, zÀÇ À§Ä¡ 3°¡Áö¸¦ °í·ÁÇÏ±â ¶§¹®ÀÌ¸ç
-        //List·Î ¼±¾ðÇÑ ÀÌÀ¯´Â ÇÏ³ªÀÇ ¹°Ã¼°¡ ¿©·¯°³ÀÇ ¼¿(±×¸®µå Ä­)¸¦ Â÷ÁöÇÒ ¼ö ÀÖ±â ¶§¹®
+        //ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ Vector3Intï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ x, y, zï¿½ï¿½ ï¿½ï¿½Ä¡ 3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½
+        //Listï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½(ï¿½×¸ï¿½ï¿½ï¿½ Ä­)ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö±ï¿½ ï¿½ï¿½ï¿½ï¿½
         List<Vector3Int> positionToOccupy = CalculatePositions(gridPosition, objectSize);
         PlacementData data = new PlacementData(positionToOccupy, ID, placedObjectIndex);
 
-        //°¡±¸¸¦ ³õ°íÀÚ ÇÏ´Â À§Ä¡¿¡ ÀÌ¹Ì ´Ù¸¥ °¡±¸°¡ ÀÖ´ÂÁö È®ÀÎ
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï´ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ì¹ï¿½ ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ È®ï¿½ï¿½
         foreach(var pos in positionToOccupy)
         {
             if (placedObjects.ContainsKey(pos))
@@ -26,7 +26,7 @@ public class GridData
                 Debug.Log($"Dictinary already contains this cell position {pos}");
                 break;
             }
-            //À§Ä¡°¡ °ãÄ¡Áö ¾ÊÀ¸¸é pos À§Ä¡¿¡ ÇØ´çÇÏ´Â ºÎºÐ¿¡ data¸¦ ³Ö¾î ¹°Ã¼°¡ ÀÖÀ½À» ÀúÀåÇÔ
+            //ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ pos ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ø´ï¿½ï¿½Ï´ï¿½ ï¿½ÎºÐ¿ï¿½ dataï¿½ï¿½ ï¿½Ö¾ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             placedObjects[pos] = data;
         }
     }
@@ -46,9 +46,9 @@ public class GridData
         return result;
     }
 
-    //¹°Ã¼¸¦ µÎ°íÀÚ ÇÏ´Â À§Ä¡¿¡ µÑ ¼ö ÀÖ´Â Áö È®ÀÎ, AddObjectAt ³»ÀÇ foreach¹®°ú °°Àº ³»¿ë
-    //AddObjectAtÇÔ¼ö¿¡¼­´Â placedObjects[pos]¸¦ foreach¹® ³»¿¡¼­ ½ÇÇàÇØ¾ß ÇÏ±â ¶§¹®¿¡ µû·Î ³öµÒ
-    //¹°Ã¼°¡ ¾øÀ¸¸é true ¹ÝÈ¯
+    //ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½Î°ï¿½ï¿½ï¿½ ï¿½Ï´ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ È®ï¿½ï¿½, AddObjectAt ï¿½ï¿½ï¿½ï¿½ foreachï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    //AddObjectAtï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ placedObjects[pos]ï¿½ï¿½ foreachï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    //ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ true ï¿½ï¿½È¯
     public bool CheckObjectPlacableAt(Vector3Int gridPosition, Vector2Int objectSize)
     {
         List<Vector3Int> positionToOccupy = CalculatePositions(gridPosition, objectSize);
@@ -71,7 +71,7 @@ public class GridData
         return placedObjects[gridPosition].PlacedObjectIndex;
     }
 
-    //¼¿ À§Ä¡¿¡ ÀÖ´Â ¿ÀºêÁ§Æ® °íÀ¯ ID¸¦ °®°í¿È(databaseÀÇ ¼³Á¤µÈ ID)
+    //ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ IDï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(databaseï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ID)
     public int GetRepresentationID(Vector3Int gridPosition)
     {
         if (placedObjects.ContainsKey(gridPosition) == false)
@@ -88,16 +88,22 @@ public class GridData
             placedObjects.Remove(position);
         }
     }
+
+    public void ClearAll()
+    {
+        placedObjects.Clear();
+    }
+
 }
 
-//Vector3IntÀÇ À§Ä¡¿¡ À§Ä¡ÇÑ ¿ÀºêÁ§Æ®ÀÇ Á¤º¸
+//Vector3Intï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 public class PlacementData
 {
-    public List<Vector3Int> occupiedPositions;//¹°Ã¼°¡ Â÷ÁöÇÑ x, y À§Ä¡
+    public List<Vector3Int> occupiedPositions;//ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ x, y ï¿½ï¿½Ä¡
 
     public int ID { get; private set; }
 
-    //¹èÄ¡ÇÑ ¿ÀºêÁ§Æ® »èÁ¦ ½Ã »ç¿ëµÉ Á¤º¸
+    //ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public int PlacedObjectIndex { get; private set; }
 
     public PlacementData(List<Vector3Int> occupiedPositions, int iD, int placedObjectIndex)

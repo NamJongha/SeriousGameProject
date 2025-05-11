@@ -11,15 +11,14 @@ public class ObjectPlacer : MonoBehaviour
     {
         GameObject newObject = Instantiate(prefab);
 
-        //»ý¼ºµÈ ¿ÀºêÁ§Æ®ÀÇ À§Ä¡ ¼³Á¤
         Vector3 cellCenter = position;
         cellCenter.y = 0.05f;
         newObject.transform.position = cellCenter;
 
-        //¿ÀºêÁ§Æ® »ý¼º ÈÄ floorÀÇ ÀÚ½ÄÀ¸·Î ³ÖÀ½(¹æ ÀúÀåÀ» À§ÇÔ)
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ floorï¿½ï¿½ ï¿½Ú½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
         newObject.transform.parent = floorObject.transform;
 
-        //³ªÁß¿¡ °¡±¸¸¦ »èÁ¦ÇÒ ¶§¸¦ À§ÇÑ ÀúÀå?
+        //ï¿½ï¿½ï¿½ß¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½?
         placedGameObjects.Add(newObject);
 
         return placedGameObjects.Count - 1;
@@ -33,5 +32,14 @@ public class ObjectPlacer : MonoBehaviour
         }
         Destroy(placedGameObjects[gameObjectIndex]);
         placedGameObjects[gameObjectIndex] = null;
+    }
+
+
+    public void RemoveAllObjects()
+    {
+        foreach(GameObject go in placedGameObjects)
+        {
+            Destroy(go);
+        }
     }
 }
