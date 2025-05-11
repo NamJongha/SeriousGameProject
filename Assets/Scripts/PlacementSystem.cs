@@ -37,6 +37,7 @@ public class PlacementSystem : MonoBehaviour
     {
         StopPlacement();
         furnitureData = new(); //new GridData()
+        furnitureData.SetGridBounds(0, 5, 0, 5);
     }
 
     public void StartPlacement(int ID)
