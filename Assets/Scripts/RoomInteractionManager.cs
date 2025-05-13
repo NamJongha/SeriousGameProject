@@ -46,7 +46,7 @@ public class RoomFocus : MonoBehaviour
     {
         lightController = room.transform.GetChild(0).gameObject.GetComponent<LightController>();
         if(lightController!=null)
-            lightController.SetLight(2.5f); // 방의 크기가 커짐에 따라 조명의 강도 역시 증가해야 함.
+            lightController.SetLight(3f); // 방의 크기가 커짐에 따라 조명의 강도 역시 증가해야 함.
 
         if (isFocused) return;
         RoomData rd = roomDatas.FindDataByObject(room);
@@ -54,7 +54,7 @@ public class RoomFocus : MonoBehaviour
         if(rd!=null)
         {
             originalPosition = room.transform.position;
-            room.transform.position = roomFocusPoint.position+roomFocusPoint.forward*7;
+            room.transform.position = roomFocusPoint.position+roomFocusPoint.forward*10;
             room.transform.localScale = room.transform.localScale*2;
             room.transform.SetParent(roomFocusPoint); // 카메라 고정 위치로 따라오게 하기
 
@@ -72,7 +72,7 @@ public class RoomFocus : MonoBehaviour
         selectedRoom.transform.SetParent(ArchiveManager.transform); // 원래 부모로 복귀
         selectedRoom.transform.position = originalPosition;
         selectedRoom.transform.localScale = selectedRoom.transform.localScale*0.5f;
-        lightController.SetLight(1/2.5f); //조명 리셋
+        lightController.SetLight(1/3f); //조명 리셋
         lightController = null;
 
         selectedRoom = null;

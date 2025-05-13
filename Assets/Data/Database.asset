@@ -18,16 +18,88 @@ MonoBehaviour:
     <Size>k__BackingField: {x: 1, y: 2}
     <Prefab>k__BackingField: {fileID: 814199684506398567, guid: 24796950a810e8e46b918801a61fb363, type: 3}
     <curCount>k__BackingField: 0
-    <limitCount>k__BackingField: 1
-  - <Name>k__BackingField: Chair
+    <limitCount>k__BackingField: 2
+  - <Name>k__BackingField: Chair_Cloth
     <ID>k__BackingField: 1
     <Size>k__BackingField: {x: 1, y: 1}
-    <Prefab>k__BackingField: {fileID: 8103732218657367930, guid: 66562bae19c8a874eaf3939a20fd475b, type: 3}
+    <Prefab>k__BackingField: {fileID: 3084088500048064928, guid: a1a0914da88ae7a449f9e843f963138b, type: 3}
     <curCount>k__BackingField: 0
     <limitCount>k__BackingField: 2
-  - <Name>k__BackingField: Table
+  - <Name>k__BackingField: Chair_Wood
     <ID>k__BackingField: 2
-    <Size>k__BackingField: {x: 3, y: 1}
-    <Prefab>k__BackingField: {fileID: 7873789686821714283, guid: 3bf1ee7187262f649bedce919fa9358b, type: 3}
+    <Size>k__BackingField: {x: 1, y: 1}
+    <Prefab>k__BackingField: {fileID: 2735761892683790504, guid: 0b1ce4402d463fe4f826eb9bace2e4a4, type: 3}
+    <curCount>k__BackingField: 0
+    <limitCount>k__BackingField: 4
+  - <Name>k__BackingField: Desk
+    <ID>k__BackingField: 3
+    <Size>k__BackingField: {x: 2, y: 1}
+    <Prefab>k__BackingField: {fileID: 4887369875308087039, guid: abbe7027bcfe5d94d817fd8b19accf1b, type: 3}
+    <curCount>k__BackingField: 0
+    <limitCount>k__BackingField: 1
+  - <Name>k__BackingField: Closet
+    <ID>k__BackingField: 4
+    <Size>k__BackingField: {x: 1, y: 1}
+    <Prefab>k__BackingField: {fileID: 2586854423615444309, guid: 98b3f633aca3f2f4d997a0ba98e7d6df, type: 3}
     <curCount>k__BackingField: 0
     <limitCount>k__BackingField: 2
+  - <Name>k__BackingField: Closet_Wood
+    <ID>k__BackingField: 5
+    <Size>k__BackingField: {x: 1, y: 1}
+    <Prefab>k__BackingField: {fileID: 6786351387088066700, guid: 71f9124985ab65240b3d99d0800f3005, type: 3}
+    <curCount>k__BackingField: 0
+    <limitCount>k__BackingField: 2
+  - <Name>k__BackingField: BookShelf
+    <ID>k__BackingField: 6
+    <Size>k__BackingField: {x: 1, y: 1}
+    <Prefab>k__BackingField: {fileID: 88057044146028732, guid: 6167679e7648321449cbb9c60e374cf3, type: 3}
+    <curCount>k__BackingField: 0
+    <limitCount>k__BackingField: 2
+  - <Name>k__BackingField: BookShelf_Wood
+    <ID>k__BackingField: 7
+    <Size>k__BackingField: {x: 2, y: 1}
+    <Prefab>k__BackingField: {fileID: 2766876351712986778, guid: 99fb411167ba8474482bf928a4a34563, type: 3}
+    <curCount>k__BackingField: 0
+    <limitCount>k__BackingField: 1
+  - <Name>k__BackingField: Bed_Dark
+    <ID>k__BackingField: 8
+    <Size>k__BackingField: {x: 2, y: 2}
+    <Prefab>k__BackingField: {fileID: 4249307493755826300, guid: 5f5cc6dd85acfeb4a9267c675957ee62, type: 3}
+    <curCount>k__BackingField: 0
+    <limitCount>k__BackingField: 1
+  - <Name>k__BackingField: Bed_Double
+    <ID>k__BackingField: 9
+    <Size>k__BackingField: {x: 2, y: 2}
+    <Prefab>k__BackingField: {fileID: 1168975192356139722, guid: 9575a523669636740b1b5005ba0616c7, type: 3}
+    <curCount>k__BackingField: 0
+    <limitCount>k__BackingField: 1
+  - <Name>k__BackingField: Bed_Single_Bright
+    <ID>k__BackingField: 10
+    <Size>k__BackingField: {x: 1, y: 2}
+    <Prefab>k__BackingField: {fileID: 4282705170469366164, guid: 53e55761dd4629542bd70075ba6cb6d9, type: 3}
+    <curCount>k__BackingField: 0
+    <limitCount>k__BackingField: 3
+  - <Name>k__BackingField: Bed_Side_Bright
+    <ID>k__BackingField: 11
+    <Size>k__BackingField: {x: 1, y: 1}
+    <Prefab>k__BackingField: {fileID: 3584954667649834327, guid: 9416e18ed4e449942a8c669b4d29711b, type: 3}
+    <curCount>k__BackingField: 0
+    <limitCount>k__BackingField: 2
+  - <Name>k__BackingField: Bed_Side_Dark
+    <ID>k__BackingField: 12
+    <Size>k__BackingField: {x: 1, y: 1}
+    <Prefab>k__BackingField: {fileID: 2063705679051839313, guid: 38fecec4de0c0fe47b1bdc7fdc8dadd7, type: 3}
+    <curCount>k__BackingField: 0
+    <limitCount>k__BackingField: 2
+  - <Name>k__BackingField: Hanger
+    <ID>k__BackingField: 13
+    <Size>k__BackingField: {x: 1, y: 1}
+    <Prefab>k__BackingField: {fileID: 4465118721959385871, guid: 949e6093db2ce4547b71138911973f9a, type: 3}
+    <curCount>k__BackingField: 1
+    <limitCount>k__BackingField: 1
+  - <Name>k__BackingField: Plant
+    <ID>k__BackingField: 14
+    <Size>k__BackingField: {x: 1, y: 1}
+    <Prefab>k__BackingField: {fileID: 8570844113706260414, guid: 92dd71818ebcafd409edea867b18759c, type: 3}
+    <curCount>k__BackingField: 1
+    <limitCount>k__BackingField: 4
