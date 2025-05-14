@@ -73,9 +73,4 @@ public class RoomArchiveManager : MonoBehaviour
         currentMaxId++;
         return currentMaxId;
     }
-
-    public void loadRoom()
-    {
-
-    }
 }
