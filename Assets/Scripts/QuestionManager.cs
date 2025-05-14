@@ -9,7 +9,7 @@ public class QuestionManager : MonoBehaviour
     [SerializeField] private TMP_InputField inputField;
     [SerializeField] private RoomArchiveManager roomArchiveManager;
     private GameObject roomObj;
-    private String answer;
+    private string answer;
 
     //제출버튼을 눌렀을때 작동. 방 obj를 저장하고 질문을 받는 ui를 실행.
     public void StartQuestion(GameObject go)

@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class RoomArchiveManager : MonoBehaviour
@@ -8,8 +8,12 @@ public class RoomArchiveManager : MonoBehaviour
     [SerializeField]
     private RoomPrefabSO roomDataSO;
     [SerializeField] private GameObject archiveParent;
-    private List<GameObject> roomList;
+    [SerializeField] private Camera camera2;
+    [SerializeField] private Camera2MoveController moveController;
+    [SerializeField] private GameObject RoomInteractable;
+    private List<string> answerList;
     private Vector3 roomPos;
+    private Vector3 camera2Pos;
     
     private int currentMaxId = -1;
 
@@ -23,23 +27,31 @@ public class RoomArchiveManager : MonoBehaviour
 
     public void Start()
     {
-        roomList = new List<GameObject>();
+        answerList = new List<string>();
         roomPos = Vector3.zero;
+        if(camera2!=null)
+            camera2Pos = camera2.transform.position;
+        else camera2Pos = new Vector3(18.4f,15.74f,18.4f); //set default position
+
+        if(RoomInteractable==null)
+            Debug.Log("error!");
     }
 
-    public void saveRoom(GameObject obj, String answer1)
+    public void saveRoom(GameObject obj, string answer1)
     {
+        GameObject archiveRoom = Instantiate(obj, archiveParent.transform);
         RoomData room = new RoomData
         {
             //id�� 0���� ���� ������ 1�� ����
-            id = GetNextId()
+            id = GetNextId(),
+            answer = answer1,
+            room = archiveRoom
         };
         roomDataSO.add(room);
-        
-        GameObject archiveRoom = Instantiate(obj, archiveParent.transform);
         archiveRoom.transform.localPosition = roomPos;
-        archiveRoom.name = "room number"+currentMaxId;
-        roomList.Add(archiveRoom);
+        archiveRoom.name = "room number" + currentMaxId;
+        GameObject roomInteractable = Instantiate(RoomInteractable,archiveRoom.transform);
+        
         MovePos();
     }
 
@@ -50,17 +62,15 @@ public class RoomArchiveManager : MonoBehaviour
         if(currentMaxId%3==1)
             roomPos += new Vector3(-width,-2*heigth,-width);
         if(currentMaxId%3==2)
+        {
             roomPos += new Vector3(width,heigth,0);
+            moveController.maxX += width*0.7f;
+        }
     }
 
     public int GetNextId()
     {
         currentMaxId++;
         return currentMaxId;
-    }
-
-    public void loadRoom()
-    {
-
     }
 }

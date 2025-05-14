@@ -7,13 +7,15 @@ public class ObjectPlacer : MonoBehaviour
     [SerializeField]
     private List<GameObject> placedGameObjects = new();
 
-    public  int PlaceObject(GameObject prefab, Vector3 position, GameObject floorObject)
+    public  int PlaceObject(GameObject prefab, Vector3 position, int rotation, GameObject floorObject)
     {
         GameObject newObject = Instantiate(prefab);
 
         Vector3 cellCenter = position;
         cellCenter.y = 0.05f;
         newObject.transform.position = cellCenter;
+
+        newObject.transform.rotation = Quaternion.Euler(0, rotation, 0);
 
         //������Ʈ ���� �� floor�� �ڽ����� ����(�� ������ ����)
         newObject.transform.parent = floorObject.transform;
