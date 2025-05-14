@@ -45,8 +45,10 @@ public class RoomFocus : MonoBehaviour
     public void FocusOnRoom(GameObject room)
     {
         lightController = room.transform.GetChild(0).gameObject.GetComponent<LightController>();
-        if(lightController!=null)
+        if (lightController != null)
+        {
             lightController.SetLight(3f); // 방의 크기가 커짐에 따라 조명의 강도 역시 증가해야 함.
+        }
 
         if (isFocused) return;
         RoomData rd = roomDatas.FindDataByObject(room);

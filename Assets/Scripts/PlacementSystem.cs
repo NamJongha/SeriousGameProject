@@ -100,6 +100,7 @@ public class PlacementSystem : MonoBehaviour
 
     public void ResetPlacement()
     {
+        StopPlacement();
         objectPlacer.RemoveAllObjects();
         database.ResetAllCount();
         furnitureData.ClearAll();
