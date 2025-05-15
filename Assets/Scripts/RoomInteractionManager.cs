@@ -26,6 +26,8 @@ public class RoomFocus : MonoBehaviour
 
     private void Update()
     {
+        if (mainCamera.targetDisplay == 1) return;
+
         if (isFocused) return;
 
         if (Input.GetMouseButtonDown(0))
